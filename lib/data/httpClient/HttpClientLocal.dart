@@ -7,6 +7,14 @@ class HttpClientLocal {
 
   final _client = http.Client();
 
+  /**
+   * django 에서 ALLOW HOST 에 ip 를 허용해야 합니다.
+   * 현재는 emulator loacl host 만 테스트를 완료 하였습니다.
+   *
+   * 실물 기기 연결의 경우 아직 세팅 법을 찾지 못했습니다.
+   *
+   * ui 및 기능 개발 완료 후 실물기기 연결 가이드 제작 예정입니다.
+   */
   final String _baseUrl = "10.0.2.2:8000";
   // final String _baseUrl = "reqres.in";
 
