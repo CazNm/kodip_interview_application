@@ -12,11 +12,11 @@ import '../httpClient/HttpClientLocal.dart';
 class TaskDatasource {
   final HttpClientLocal _httpClient = HttpClientLocal();
 
-  Future<void> postTaskLogin(
+  Future<void> postTaskLogin<T>(
       String hashedParam,
       Map<String, String>? body,
       {
-        required Future<void> Function(dynamic) onSuccess,
+        required Future<void> Function(T) onSuccess,
         required Future<void> Function(String) onFail
       }
   ) async {

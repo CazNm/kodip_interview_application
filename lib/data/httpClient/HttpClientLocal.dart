@@ -31,12 +31,12 @@ class HttpClientLocal {
      }
   }
 
-  Future<void> post(
+  Future<void> post<T>(
       String methodUrl,
       String hashedParam,
       Map<String, String>? jsonBody,
       {
-        required Future<void> Function(dynamic) onSuccess,
+        required Future<void> Function(T) onSuccess,
         required Future<void> Function(String) onFail
       }
   ) async {

@@ -1,5 +1,6 @@
 
 
+import 'package:sampl/data/dto/networkDTO/response/BaseResponseDTO.dart';
 import 'package:sampl/data/enum/CurrencySymbol.dart';
 import 'package:sampl/data/dto/networkDTO/networkDTO/TransactionSummaryNetworkDTO.dart';
 import 'package:sampl/data/dto/networkDTO/response/CurrencyResponse.dart';
@@ -12,7 +13,7 @@ import '../../dto/networkDTO/networkDTO/ExampleNetworkDTO.dart';
 abstract class TaskRepositoryClass {
 
   Future<void> postLogin(
-      Future<void> Function(dynamic) onSuccess,
+      Future<void> Function(BaseResponseDTO) onSuccess,
       Future<void> Function(String) onFail
   );
 

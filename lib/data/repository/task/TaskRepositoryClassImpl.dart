@@ -1,4 +1,5 @@
 
+import 'package:sampl/data/dto/networkDTO/response/BaseResponseDTO.dart';
 import 'package:sampl/data/enum/CurrencySymbol.dart';
 import 'package:sampl/data/datasource/ExampleDataSource.dart';
 import 'package:sampl/data/datasource/TaskDatasource.dart';
@@ -28,7 +29,7 @@ class TaskRepositoryClassImpl extends TaskRepositoryClass {
 
   @override
   Future<void> postLogin(
-      Future<void> Function(dynamic) onSuccess,
+      Future<void> Function(BaseResponseDTO) onSuccess,
       Future<void> Function(String) onFail
   ) async {
     // TODO: implement postLogin

@@ -20,20 +20,21 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  late SplashBloc splashBloc;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    SplashBloc splashBloc = BlocProvider.of<SplashBloc>(context);
+    splashBloc = BlocProvider.of<SplashBloc>(context);
     SplashUiState state = splashBloc.state;
 
     printHelper(state.toString());
     switch(state.splashState) {
-      case SplashState.initialize:
+      case SplashStateInitialize():
         splashBloc.add(SplashInitialize());
-      case SplashState.loading:
-      case SplashState.successful:
-      case SplashState.error:
+      default :
+        break;
     }
   }
   @override
@@ -43,19 +44,20 @@ class _SplashScreenState extends State<SplashScreen> {
         listener: (context, state) {
           printHelper(state.toString());
           switch(state.splashState) {
-            case SplashState.initialize:
+            case SplashStateCheckPermission():
               return;
-            case SplashState.loading:
+            case SplashStateLogin() :
               return;
-            case SplashState.successful:
+            case SplashStateSuccessful():
               Navigator.of(context).pushReplacementNamed(HomeRoute.init);
               return;
-            case SplashState.error:
+            case SplashStateError():
               return;
+            default :
+              break;
           }
         },
         builder: (BuildContext context, state) {
-
           return Container(
             alignment: Alignment.center,
             child: LinearProgressIndicator(

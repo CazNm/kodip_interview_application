@@ -1,0 +1,5 @@
+enum ErrorReason {
+  NETWORK,
+  LOGIC_EXCEPTION,
+  API_EXCEPTION,
+}
