@@ -1,20 +1,22 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampl/scenario/splash/SplashScreen.dart';
 import 'package:sampl/scenario/splash/bloc/SplashBLoC.dart';
+import 'package:sampl/util/ui/TopLevelView.dart';
 
 
-class SplashView extends StatelessWidget {
+class SplashView extends TopLevelView {
   const SplashView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (BuildContext context) => SplashBloc())
-        ],
-        child: const SplashScreen()
-    );
+  Widget child(BuildContext context) {
+    // TODO: implement child
+    return const SplashScreen();
   }
+
+  @override
+  List<BlocProvider<SplashBloc>> providers() {
+    return [ BlocProvider(create: (BuildContext context) => SplashBloc()) ];
+  }
+
 }

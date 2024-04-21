@@ -17,8 +17,14 @@ abstract class TaskRepositoryClass {
       Future<void> Function(String) onFail
   );
 
-  Future<HomeResponseDTO> postHome(
-      Future<void> Function(dynamic) onSuccess,
+  Future<void> postHome(
+      Future<void> Function(HomeResponseDTO) onSuccess,
+      Future<void> Function(String) onFail
+  );
+
+  Future<void> postTransactions(
+      int page,
+      Future<void> Function(TransactionsResponseDTO) onSuccess,
       Future<void> Function(String) onFail
   );
 
@@ -28,11 +34,6 @@ abstract class TaskRepositoryClass {
       Future<void> Function(String) onFail
   );
 
-  Future<TransactionsResponseDTO> postTransactions(
-      int page,
-      Future<void> Function(dynamic) onSuccess,
-      Future<void> Function(String) onFail
-  );
 
   Future<TransactionSummaryNetworkDTO> postTransaction(
       int tr_id,

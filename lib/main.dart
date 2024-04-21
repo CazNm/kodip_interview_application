@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampl/navigationRoute/HomeRoute.dart';
 import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/HomeNavigator.dart';
 import 'package:sampl/scenario/splash/SplahView.dart';
 import 'package:sampl/scenario/splash/SplashScreen.dart';
+import 'package:sampl/scenario/splash/bloc/SplashBLoC.dart';
 
 void main() {
   runApp(const MyApp());

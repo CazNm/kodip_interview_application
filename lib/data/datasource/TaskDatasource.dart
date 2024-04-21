@@ -12,11 +12,11 @@ import '../httpClient/HttpClientLocal.dart';
 class TaskDatasource {
   final HttpClientLocal _httpClient = HttpClientLocal();
 
-  Future<void> postTaskLogin<T>(
+  Future<void> postTaskLogin(
       String hashedParam,
       Map<String, String>? body,
       {
-        required Future<void> Function(T) onSuccess,
+        required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
       }
   ) async {
@@ -31,9 +31,9 @@ class TaskDatasource {
 
   Future<void> postHome(
       String hashedParam,
-      Map<String, String> body,
+      Map<String, String>? body,
       {
-        required Future<void> Function(dynamic) onSuccess,
+        required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
       }
   ) async {
@@ -50,7 +50,7 @@ class TaskDatasource {
       String hashedParam,
       Map<String, String> body,
       {
-        required Future<void> Function(dynamic) onSuccess,
+        required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
       }
   ) async {
@@ -67,7 +67,7 @@ class TaskDatasource {
       String hashedParam,
       Map<String, String> body,
       {
-        required Future<void> Function(dynamic) onSuccess,
+        required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
       }
   ) async {
@@ -84,7 +84,7 @@ class TaskDatasource {
       String hashedParam,
       Map<String, String> body,
       {
-        required Future<void> Function(dynamic) onSuccess,
+        required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
       }
   )  async {

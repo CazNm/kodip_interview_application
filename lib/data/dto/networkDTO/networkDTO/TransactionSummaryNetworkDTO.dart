@@ -16,10 +16,17 @@ class TransactionSummaryNetworkDTO {
   });
 
   factory TransactionSummaryNetworkDTO.fromJson(Map<String, dynamic> json) {
+
+    var amount = json["tr_amount"];
+
+    if(amount.runtimeType == double) {
+      amount = (amount as double).round();
+    }
+
     return TransactionSummaryNetworkDTO(
         tr_id: json["tr_id"],
         tr_title: json["tr_title"],
-        tr_amount: json["tr_amount"],
+        tr_amount: amount,
         tr_currency: json["tr_currency"],
         tr_ico: json["tr_ico"],
         tr_type: json["tr_type"]

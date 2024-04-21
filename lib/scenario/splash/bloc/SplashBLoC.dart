@@ -5,6 +5,7 @@ import 'package:sampl/data/dto/networkDTO/response/BaseResponseDTO.dart';
 import 'package:sampl/data/enum/ErrorReason.dart';
 import 'package:sampl/data/repository/task/TaskRepositoryClassImpl.dart';
 import 'package:sampl/scenario/splash/bloc/uiState/splashUiState.dart';
+import 'package:sampl/util/toast/toastHelper.dart';
 
 import '../../../data/repository/task/TaskRepositoryClass.dart';
 import '../../../util/debugPrint.dart';
@@ -29,7 +30,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashUiState> {
 
     SplashBloc() : super(
          SplashUiState(
-            splashState: SplashStateInitialize as SplashState,
+            splashState: SplashStateInitialize(),
             loadingStage: 0
         )
     ) {
@@ -38,7 +39,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashUiState> {
        */
       on<SplashInitialize> ((event, emit) async {
         await Future.delayed(const Duration(milliseconds: 2000), () {});
-        emit(state.copyWith(splashState: SplashStateCheckPermission as SplashState));
+        emit(state.copyWith(splashState: SplashStateCheckPermission()));
 
       });
 
@@ -50,12 +51,23 @@ class SplashBloc extends Bloc<SplashEvent, SplashUiState> {
        * 실패 시에 onError 이벤트를 실행하도록 합니다.
        */
       on<SplashPermissionCheck>((event, emit) async {
+        printHelper("permission Request");
         Map<Permission, PermissionStatus> statuses = await [
           Permission.location,
           Permission.camera,
         ].request();
-        printHelper(statuses[Permission.location].toString());
-        printHelper(statuses[Permission.camera].toString());
+
+        var locationPermissionStatus = statuses[Permission.location];
+        var photoPermissionStatus = statuses[Permission.camera];
+
+        var locationIsDeny = (locationPermissionStatus != PermissionStatus.granted);
+        var photoIsDeny = (photoPermissionStatus != PermissionStatus.granted);
+
+        if(locationIsDeny || photoIsDeny) {
+          emit(state.copyWith(splashState: SplashStateError(ErrorReason.PERMISSION_NOT_GRANTED), loadingStage: state.loadingStage + 50));
+        } else {
+          emit(state.copyWith(splashState: SplashStateLogin(), loadingStage: state.loadingStage + 50));
+        }
       });
 
       /**
@@ -75,19 +87,21 @@ class SplashBloc extends Bloc<SplashEvent, SplashUiState> {
         await taskRepository.postLogin(
                 (BaseResponseDTO responseValue) async {
                   if(responseValue.result == "success") {
-                    emit(state.copyWith(splashState: SplashStateSuccessful as SplashState, loadingStage: state.loadingStage + 50));
+                    emit(state.copyWith(splashState: SplashStateSuccessful(), loadingStage: state.loadingStage + 50));
                   } else {
-                    emit(state.copyWith(splashState: SplashStateError(ErrorReason.API_EXCEPTION) as SplashState));
+                    emit(state.copyWith(splashState: SplashStateError(ErrorReason.API_EXCEPTION)));
                   }
                 },
                 (String onFail) async {
-                  emit(state.copyWith(splashState: SplashStateError(ErrorReason.API_EXCEPTION) as SplashState));
+                  emit(state.copyWith(splashState: SplashStateError(ErrorReason.API_EXCEPTION)));
                 }
         );
       });
 
       /**
-       * Splash Event 를 수행 중에 Error 를 받을 경우 수행하는 로직입니다.
+       * Splash Event 를 수행 중에 Error 를 받을 경우 BLoC 에서 수행하는 로직입니다.
+       *
+       * 해당 상태에서의 Screen/BLoc 의 로직은
        *
        * 토스트 노출 후 어플리케이션을 종료 합니다.
        *
@@ -100,9 +114,10 @@ class SplashBloc extends Bloc<SplashEvent, SplashUiState> {
        * API 통신 실패, 내부로직 수행 중 에러는 토스트 노출 후 1초 뒤 앱을 종료합니다.
        */
       on<SplashOnError>((event, emit) async {
+        SplashStateError errorState;
         switch(state.splashState) {
           case SplashStateError() :
-            SplashStateError errorState = state.splashState as SplashStateError;
+             errorState = state.splashState as SplashStateError;
             printHelper("setLogic wit State Error reason ${errorState.errorReason}");
           default :
             throw Exception("on Error SplashState must be ErrorState");
@@ -111,6 +126,8 @@ class SplashBloc extends Bloc<SplashEvent, SplashUiState> {
 
       /**
        * Splash의 모든 과정이 수행 완료 되었을 때의 로직입니다.
+       *
+       * 해당 상태에서의 Screen/BLoc 의 로직은
        *
        * Home Scenario 로 이동합니다.
        */

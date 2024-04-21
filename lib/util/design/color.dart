@@ -14,6 +14,8 @@ var color88BE2E = const Color(0xFF88BE2E);
 /// green l
 var color436D00 = const Color(0xFF436D00);
 
+var colorBFFC49 = const Color(0xFFBFFC49);
+
 /// red s -> dartkTheme
 var colorFF5E3B = const Color(0xFFFF5E3B);
 /// red m -> lightTheme

@@ -13,13 +13,16 @@ class TextSmall extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
+        fontFamily: "Pretendard",
         fontSize: 10,
         fontWeight: FontWeight.w400,
         height: 1.4,
+        overflow: TextOverflow.ellipsis
       ),
     );
   }
 }
+
 
 class TextMedium extends StatelessWidget {
   final String text;
@@ -34,9 +37,11 @@ class TextMedium extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
+        fontFamily: "Pretendard",
         fontSize: 12,
         fontWeight: FontWeight.w400,
         height: 1.5,
+        overflow: TextOverflow.ellipsis
       ),
     );
   }
@@ -56,9 +61,11 @@ class TextLarge extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
+        fontFamily: "Pretendard",
         fontSize: 16,
         fontWeight: FontWeight.w400,
         height: 1.5,
+        overflow: TextOverflow.ellipsis
       ),
     );
   }
@@ -78,9 +85,11 @@ class TextTitleSmall extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
+        fontFamily: "Pretendard",
         fontSize: 12,
         fontWeight: FontWeight.w600,
         height: 1.666,
+        overflow: TextOverflow.ellipsis
       ),
     );
   }
@@ -99,9 +108,11 @@ class TextTitleMedium extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
+        fontFamily: "Pretendard",
         fontSize: 16,
         fontWeight: FontWeight.w600,
         height: 1.25,
+          overflow: TextOverflow.ellipsis
       ),
     );
   }
@@ -120,11 +131,35 @@ class TextTitleLarge extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
+        fontFamily: "Pretendard",
         fontSize: 20,
         fontWeight: FontWeight.w600,
         height: 1.4,
+        overflow: TextOverflow.ellipsis
       ),
     );
   }
 }
 
+class TextMediumSeoulNamsan extends StatelessWidget {
+  final String text;
+
+  const TextMediumSeoulNamsan({
+    super.key,
+    required this.text
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontFamily: "SeoulNamsan",
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        height: 1.4,
+          overflow: TextOverflow.ellipsis
+      ),
+    );
+  }
+}

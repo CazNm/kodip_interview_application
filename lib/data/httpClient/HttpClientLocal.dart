@@ -34,9 +34,9 @@ class HttpClientLocal {
   Future<void> post<T>(
       String methodUrl,
       String hashedParam,
-      Map<String, String>? jsonBody,
+      Map<String, dynamic>? jsonBody,
       {
-        required Future<void> Function(T) onSuccess,
+        required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
       }
   ) async {
