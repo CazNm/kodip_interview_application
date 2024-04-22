@@ -9,6 +9,7 @@ class TransactionSummary {
   final CurrencySymbol tr_currency;
   final String tr_ico;
   final PaymentType tr_type;
+  final String tr_dt;
 
   TransactionSummary(
   {
@@ -18,5 +19,6 @@ class TransactionSummary {
     required this.tr_currency,
     required this.tr_ico,
     required this.tr_type,
+    required this.tr_dt
   });
 }

@@ -22,7 +22,7 @@ class TaskDatasource {
   ) async {
     await _httpClient.post(
         "/task/login",
-        hashedParam,
+        {"hashed" : hashedParam},
         body,
         onSuccess: onSuccess,
         onFail: onFail
@@ -39,7 +39,7 @@ class TaskDatasource {
   ) async {
     await _httpClient.post(
         "/task/home",
-        hashedParam,
+        {"hashed" : hashedParam},
         body,
         onSuccess: onSuccess,
         onFail: onFail
@@ -56,7 +56,7 @@ class TaskDatasource {
   ) async {
     await _httpClient.post(
         "/task/currency",
-        hashedParam,
+        {"hashed" : hashedParam},
         body,
         onSuccess: onSuccess,
         onFail: onFail
@@ -65,7 +65,8 @@ class TaskDatasource {
 
   Future<void> postTransactions(
       String hashedParam,
-      Map<String, String> body,
+      int page,
+      Map<String, dynamic>? body,
       {
         required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
@@ -73,7 +74,10 @@ class TaskDatasource {
   ) async {
     await _httpClient.post(
         "/task/transactions",
-        hashedParam,
+        {
+          "hashed" : hashedParam,
+          "page" : page.toString()
+        },
         body,
         onSuccess: onSuccess,
         onFail: onFail
@@ -90,7 +94,7 @@ class TaskDatasource {
   )  async {
     await _httpClient.post(
         "/task/transaction",
-        hashedParam,
+        {"hashed" : hashedParam},
         body,
         onSuccess: onSuccess,
         onFail: onFail

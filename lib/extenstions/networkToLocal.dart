@@ -73,7 +73,8 @@ extension TransactionSummaryDTOtoLocal on TransactionSummaryNetworkDTO {
         tr_amount: tr_amount,
         tr_currency: localTrCurrency,
         tr_ico: tr_ico,
-        tr_type: localPaymentType
+        tr_type: localPaymentType,
+        tr_dt: tr_dt
     );
   }
 }

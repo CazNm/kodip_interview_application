@@ -80,9 +80,8 @@ class TaskRepositoryClassImpl extends TaskRepositoryClass {
     String? hashedValue = await cbcPlugin.encodeStringWithCBC("/task/transactions");
     await taskDatasource.postTransactions(
         hashedValue ?? "",
-        {
-          "page" : page.toString()
-        },
+        page,
+        null,
         onSuccess: (Map<String, dynamic> responseJson) async {
           List<dynamic> transactionList = responseJson["transactions"];
 

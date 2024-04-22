@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sampl/data/dto/localDTO/TransactionSummary.dart';
 import 'package:sampl/data/dto/localDTO/Wallet.dart';
 import 'package:sampl/data/dto/networkDTO/response/HomeResponseDTO.dart';
 import 'package:sampl/data/dto/networkDTO/response/TransactionsResponseDTO.dart';
@@ -105,6 +106,34 @@ class HomeBloc extends Bloc<HomeEvent, HomeUiState> {
     /**
      * Transactoin 의 더보기가 활성화가 되어 있다면, 추가 데이터를 가져 옵니다.
      */
+    on<HomeRequestTransactionMore>((event, emit) async {
+      var nextPage = state.currentPage + 1;
+      printHelper("current page is $nextPage");
+      await taskRepositoryClass.postTransactions(
+          nextPage,
+          (TransactionsResponseDTO onSuccessResponse) async {
+            printHelper("has next? ${onSuccessResponse.next}");
+            var stateList = state.transactionSummaryList.onMap((item) => item);
+
+            onSuccessResponse.transactions.onMap((item){
+              stateList.add(item.toLocalDTO());
+              return;
+            });
+
+            emit(
+                state.copyWith(
+                  currentPage: nextPage,
+                  state: HomeLoadingDone(),
+                  transactionSummaryList: stateList,
+                  hasNext: onSuccessResponse.next,
+                )
+            );
+          },
+          (String failMsg) async {
+
+          }
+      );
+    });
 
     on<HomeError>((event, emit){
 

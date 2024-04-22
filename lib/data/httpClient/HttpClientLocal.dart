@@ -33,7 +33,7 @@ class HttpClientLocal {
 
   Future<void> post<T>(
       String methodUrl,
-      String hashedParam,
+      Map<String, String> jsonParam,
       Map<String, dynamic>? jsonBody,
       {
         required Future<void> Function(Map<String, dynamic>) onSuccess,
@@ -46,9 +46,9 @@ class HttpClientLocal {
         Uri.http(
             _baseUrl,
             methodUrl,
-            {"hashed" : hashedParam}
+            jsonParam
         ),
-        body: jsonBody
+        body: jsonEncode(jsonBody)
     ).timeout(
         const Duration(seconds: 5),
         onTimeout: () async {

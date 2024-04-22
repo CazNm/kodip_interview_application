@@ -45,6 +45,10 @@ class _HomeScreen extends State<HomeScreen> {
     }
   }
 
+  void onClickMore() {
+    homeBloc.add(HomeRequestTransactionMore());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeUiState>(
@@ -117,7 +121,7 @@ class _HomeScreen extends State<HomeScreen> {
                                  itemCount: state.transactionSummaryList.length,
                                )
                            ),),
-                           moreButton(state.hasNext)
+                           moreButton(state.hasNext, onClick: onClickMore)
                          ],
                        )
                      ),
@@ -194,7 +198,9 @@ class _HomeScreen extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextTitleSmall(text: data.tr_title),
-                TextSmall(text: "$paymentType ${data.tr_currency.name} ${data.tr_amount.toCurrencyFormat()}")
+                SizedBox(
+                    width: MediaQuery.of(context).size.width - size120.toDouble(),
+                    child: TextSmall(text: "$paymentType ${data.tr_currency.name} ${data.tr_amount.toCurrencyFormat()} ${data.tr_dt}"))
               ],
             )
           ],
@@ -219,20 +225,23 @@ class _HomeScreen extends State<HomeScreen> {
     return kodipPngIcon;
   }
 
-  Widget moreButton(bool isMore) {
+  Widget moreButton(bool isMore, {required void Function() onClick}) {
     if(isMore) {
-      return Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(paddingMedium.toDouble()),
+      return GestureDetector(
+        onTap: onClick,
         child: Container(
           width: double.infinity,
-          height: size60.toDouble(),
-          decoration: BoxDecoration(
-              color: colorBFFC49,
-              borderRadius: BorderRadius.all(Radius.circular(size8.toDouble()))
-          ),
-          child: const Center(
-            child: TextTitleSmall(text: "더보기"),
+          padding: EdgeInsets.all(paddingMedium.toDouble()),
+          child: Container(
+            width: double.infinity,
+            height: size60.toDouble(),
+            decoration: BoxDecoration(
+                color: colorBFFC49,
+                borderRadius: BorderRadius.all(Radius.circular(size8.toDouble()))
+            ),
+            child: const Center(
+              child: TextTitleSmall(text: "더보기"),
+            ),
           ),
         ),
       );
@@ -240,4 +249,6 @@ class _HomeScreen extends State<HomeScreen> {
       return Container();
     }
   }
+
+
 }

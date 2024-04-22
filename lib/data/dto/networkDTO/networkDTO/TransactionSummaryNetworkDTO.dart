@@ -5,6 +5,7 @@ class TransactionSummaryNetworkDTO {
   final String tr_currency;
   final String tr_ico;
   final String tr_type;
+  final String tr_dt;
 
   TransactionSummaryNetworkDTO({
     required this.tr_id,
@@ -12,7 +13,8 @@ class TransactionSummaryNetworkDTO {
     required this.tr_amount,
     required this.tr_currency,
     required this.tr_ico,
-    required this.tr_type
+    required this.tr_type,
+    required this.tr_dt
   });
 
   factory TransactionSummaryNetworkDTO.fromJson(Map<String, dynamic> json) {
@@ -29,7 +31,8 @@ class TransactionSummaryNetworkDTO {
         tr_amount: amount,
         tr_currency: json["tr_currency"],
         tr_ico: json["tr_ico"],
-        tr_type: json["tr_type"]
+        tr_type: json["tr_type"],
+        tr_dt: json["tr_dt"]
     );
   }
 }
