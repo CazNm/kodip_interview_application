@@ -9,6 +9,8 @@ import 'package:sampl/data/dto/localDTO/Wallet.dart';
 import 'package:sampl/data/enum/PaymentType.dart';
 import 'package:sampl/extenstions/IntExtension.dart';
 import 'package:sampl/extenstions/ListMapper.dart';
+import 'package:sampl/navigationRoute/HomeRoute.dart';
+import 'package:sampl/scenario/home/HomeNavigator.dart';
 import 'package:sampl/scenario/home/main/bloc/HomeBloc.dart';
 import 'package:sampl/scenario/home/main/bloc/uiState/HomeUiState.dart';
 import 'package:sampl/util/debugPrint.dart';
@@ -16,6 +18,7 @@ import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/fixedSize.dart';
 import 'package:sampl/util/design/paddingValue.dart';
 import 'package:sampl/util/design/textClass.dart';
+import 'package:sampl/util/ui/kodipLargeTabButton.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,6 +50,13 @@ class _HomeScreen extends State<HomeScreen> {
 
   void onClickMore() {
     homeBloc.add(HomeRequestTransactionMore());
+  }
+
+  void moveToTransactionDetailView(int tr_id) {
+    Navigator.of(context).pushNamed(
+      HomeRoute.transaction,
+      arguments: HomeRouteTransactionArgument(transactionId: tr_id)
+    );
   }
 
   @override
@@ -121,7 +131,11 @@ class _HomeScreen extends State<HomeScreen> {
                                  itemCount: state.transactionSummaryList.length,
                                )
                            ),),
-                           moreButton(state.hasNext, onClick: onClickMore)
+                           kodipLargeTabButton(
+                               "더보기",
+                               showButton : state.hasNext,
+                               onClick: onClickMore
+                           )
                          ],
                        )
                      ),
@@ -184,26 +198,31 @@ class _HomeScreen extends State<HomeScreen> {
       PaymentType.once => "일시불",
       PaymentType.installments => "할부"
     };
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(paddingMedium.toDouble()),
-      child: SizedBox(
+    return GestureDetector(
+      onTap: () {
+        moveToTransactionDetailView(data.tr_id);
+      },
+      child: Container(
         width: double.infinity,
-        height: size36.toDouble(),
-        child: Row(
-          children: [
-            kodipPng(),
-            SizedBox(width: size8.toDouble()),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextTitleSmall(text: data.tr_title),
-                SizedBox(
-                    width: MediaQuery.of(context).size.width - size120.toDouble(),
-                    child: TextSmall(text: "$paymentType ${data.tr_currency.name} ${data.tr_amount.toCurrencyFormat()} ${data.tr_dt}"))
-              ],
-            )
-          ],
+        padding: EdgeInsets.all(paddingMedium.toDouble()),
+        child: SizedBox(
+          width: double.infinity,
+          height: size36.toDouble(),
+          child: Row(
+            children: [
+              kodipPng(),
+              SizedBox(width: size8.toDouble()),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextTitleSmall(text: data.tr_title),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width - size120.toDouble(),
+                      child: TextSmall(text: "$paymentType ${data.tr_currency.name} ${data.tr_amount.toCurrencyFormat()} ${data.tr_dt}"))
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -223,31 +242,6 @@ class _HomeScreen extends State<HomeScreen> {
     );
 
     return kodipPngIcon;
-  }
-
-  Widget moreButton(bool isMore, {required void Function() onClick}) {
-    if(isMore) {
-      return GestureDetector(
-        onTap: onClick,
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(paddingMedium.toDouble()),
-          child: Container(
-            width: double.infinity,
-            height: size60.toDouble(),
-            decoration: BoxDecoration(
-                color: colorBFFC49,
-                borderRadius: BorderRadius.all(Radius.circular(size8.toDouble()))
-            ),
-            child: const Center(
-              child: TextTitleSmall(text: "더보기"),
-            ),
-          ),
-        ),
-      );
-    } else {
-      return Container();
-    }
   }
 
 

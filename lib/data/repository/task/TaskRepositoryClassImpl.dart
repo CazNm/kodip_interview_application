@@ -93,7 +93,6 @@ class TaskRepositoryClassImpl extends TaskRepositoryClass {
         },
         onFail: onFail
     );
-
   }
 
   @override
@@ -103,8 +102,21 @@ class TaskRepositoryClassImpl extends TaskRepositoryClass {
   }
 
   @override
-  Future<TransactionSummaryNetworkDTO> postTransaction(int tr_id, void Function(dynamic p1) onSuccess, void Function(String p1) onFail) {
-    // TODO: implement postTransaction
-    throw UnimplementedError();
+  Future<void> postTransaction(
+      int tr_id,
+      Future<void> Function(TransactionSummaryNetworkDTO) onSuccess,
+      Future<void> Function(String) onFail
+  ) async {
+    String? hashedValue = await cbcPlugin.encodeStringWithCBC("/task/transaction");
+    await taskDatasource.postTransaction(
+        hashedValue ?? "",
+        tr_id,
+        null,
+        onSuccess: (Map<String, dynamic> responseJson) async {
+          var networkDTO = TransactionSummaryNetworkDTO.fromJson(responseJson);
+          await onSuccess(networkDTO);
+        },
+        onFail: onFail
+    );
   }
 }

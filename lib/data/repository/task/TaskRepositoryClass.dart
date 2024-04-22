@@ -35,9 +35,9 @@ abstract class TaskRepositoryClass {
   );
 
 
-  Future<TransactionSummaryNetworkDTO> postTransaction(
+  Future<void> postTransaction(
       int tr_id,
-      Future<void> Function(dynamic) onSuccess,
+      Future<void> Function(TransactionSummaryNetworkDTO) onSuccess,
       Future<void> Function(String) onFail
   );
 }

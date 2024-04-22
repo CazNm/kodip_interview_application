@@ -86,7 +86,8 @@ class TaskDatasource {
 
   Future<void> postTransaction(
       String hashedParam,
-      Map<String, String> body,
+      int tr_id,
+      Map<String, String>? body,
       {
         required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
@@ -94,7 +95,10 @@ class TaskDatasource {
   )  async {
     await _httpClient.post(
         "/task/transaction",
-        {"hashed" : hashedParam},
+        {
+          "hashed" : hashedParam,
+          "tr_id" : tr_id.toString()
+        },
         body,
         onSuccess: onSuccess,
         onFail: onFail

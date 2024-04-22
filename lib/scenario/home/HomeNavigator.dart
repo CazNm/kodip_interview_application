@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sampl/navigationRoute/HomeRoute.dart';
 import 'package:sampl/scenario/home/main/HomeView.dart';
+import 'package:sampl/scenario/home/transaction/TransactionView.dart';
 import 'package:sampl/util/debugPrint.dart';
 import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/textClass.dart';
@@ -21,11 +22,13 @@ class HomeNavigator extends StatelessWidget {
               color : colorWhite,
               child: const HomeView(),
             );
-          case HomeRoute.transaction:
+          case HomeRoute.transaction: {
+            final args = settings.arguments as HomeRouteTransactionArgument;
             builder = (BuildContext context) =>  Container(
               color : colorWhite,
-              child: const TextTitleLarge(text: "home / transaction"),
+              child: TransactionView(transactionId : args.transactionId),
             );
+          }
           case HomeRoute.currency:
             builder = (BuildContext _) => Container(
               color : colorWhite,
@@ -41,4 +44,12 @@ class HomeNavigator extends StatelessWidget {
       },
     );
   }
+}
+
+class HomeRouteTransactionArgument  {
+  final int transactionId;
+
+  HomeRouteTransactionArgument({
+    required this.transactionId
+  });
 }
