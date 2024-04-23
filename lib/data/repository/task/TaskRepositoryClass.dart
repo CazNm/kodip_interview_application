@@ -28,9 +28,9 @@ abstract class TaskRepositoryClass {
       Future<void> Function(String) onFail
   );
 
-  Future<CurrencyResponseDTO> postCurrency(
+  Future<void> postCurrency(
       CurrencySymbol symbol,
-      Future<void> Function(dynamic) onSuccess,
+      Future<void> Function(CurrencyResponseDTO) onSuccess,
       Future<void> Function(String) onFail
   );
 

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:sampl/data/dto/localDTO/TransactionSummary.dart';
 import 'package:sampl/data/dto/localDTO/User.dart';
 import 'package:sampl/data/dto/localDTO/Wallet.dart';
+import 'package:sampl/data/enum/CurrencySymbol.dart';
 import 'package:sampl/data/enum/PaymentType.dart';
 import 'package:sampl/extenstions/IntExtension.dart';
 import 'package:sampl/extenstions/ListMapper.dart';
@@ -59,6 +60,13 @@ class _HomeScreen extends State<HomeScreen> {
     );
   }
 
+  void moveToCurrencyDetailView(CurrencySymbol symbol) {
+    Navigator.of(context).pushNamed(
+      HomeRoute.currency,
+      arguments: HomeRouteCurrencyArgument(currencySymbolEnum: symbol)
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeUiState>(
@@ -92,7 +100,7 @@ class _HomeScreen extends State<HomeScreen> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: state.wallets.onMap((item) => walletItem(item)),
+                      children: state.wallets.onMap((item) => walletItem(item, moveToCurrencyDetailView)),
                     ),
                   ),
                 ),
@@ -163,32 +171,49 @@ class _HomeScreen extends State<HomeScreen> {
     );
   }
 
-  Widget walletItem (Wallet data) {
-    return Container(
-      width: size90.toDouble(),
-      height: size120.toDouble(),
-      decoration: BoxDecoration(
-        color: colorBFFC49,
-        borderRadius: BorderRadius.all(Radius.circular(size8.toDouble()))
-      ),
-      padding: EdgeInsets.fromLTRB(paddingLarge.toDouble(),0,paddingLarge.toDouble(),0),
-      margin: EdgeInsets.all(paddingSmall.toDouble()),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextTitleLarge(text: data.emoji),
-          SizedBox(
-            height: size4.toDouble()
-          ),
-          TextTitleLarge(text: data.currency),
-          Row(
-            children: [
-              TextMediumSeoulNamsan(text: data.symbol),
-              TextMedium(text: data.amount.toCurrencyFormat())
-            ],
-          )
-        ],
+  Widget walletItem (Wallet data, void Function(CurrencySymbol) onClickItem) {
+    return GestureDetector(
+      onTap: (){
+        CurrencySymbol? currency = switch(data.currency) {
+          "USD" => CurrencySymbol.USD,
+          "KRW" => CurrencySymbol.KRW,
+          "JPY" => CurrencySymbol.JPY,
+          "MXN" => CurrencySymbol.MXN,
+          "CNY" => CurrencySymbol.CNY,
+          _ => null
+        };
+
+        printHelper("symbol is ${data.symbol} / $currency");
+        if(currency != null) {
+          onClickItem(currency);
+        }
+      },
+      child: Container(
+        width: size90.toDouble(),
+        height: size120.toDouble(),
+        decoration: BoxDecoration(
+          color: colorBFFC49,
+          borderRadius: BorderRadius.all(Radius.circular(size8.toDouble()))
+        ),
+        padding: EdgeInsets.fromLTRB(paddingLarge.toDouble(),0,paddingLarge.toDouble(),0),
+        margin: EdgeInsets.all(paddingSmall.toDouble()),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextTitleLarge(text: data.emoji),
+            SizedBox(
+              height: size4.toDouble()
+            ),
+            TextTitleLarge(text: data.currency),
+            Row(
+              children: [
+                TextMediumSeoulNamsan(text: data.symbol),
+                TextMedium(text: data.amount.toCurrencyFormat())
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

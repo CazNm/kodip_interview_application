@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sampl/data/enum/CurrencySymbol.dart';
 import 'package:sampl/navigationRoute/HomeRoute.dart';
+import 'package:sampl/scenario/home/currency/CurrencyView.dart';
 import 'package:sampl/scenario/home/main/HomeView.dart';
 import 'package:sampl/scenario/home/transaction/TransactionView.dart';
 import 'package:sampl/util/debugPrint.dart';
@@ -30,9 +32,10 @@ class HomeNavigator extends StatelessWidget {
             );
           }
           case HomeRoute.currency:
+            final args = settings.arguments as HomeRouteCurrencyArgument;
             builder = (BuildContext _) => Container(
               color : colorWhite,
-              child: const TextTitleLarge(text: "home / currency"),
+              child: CurrencyView(symbol: args.currencySymbolEnum),
             );
           default:
             builder = (BuildContext _) => Container(
@@ -51,5 +54,13 @@ class HomeRouteTransactionArgument  {
 
   HomeRouteTransactionArgument({
     required this.transactionId
+  });
+}
+
+class HomeRouteCurrencyArgument {
+  final CurrencySymbol currencySymbolEnum;
+
+  HomeRouteCurrencyArgument({
+    required this.currencySymbolEnum
   });
 }

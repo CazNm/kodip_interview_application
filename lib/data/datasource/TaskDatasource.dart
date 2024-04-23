@@ -5,6 +5,7 @@ import 'package:sampl/data/dto/networkDTO/response/BaseResponseDTO.dart';
 import 'package:sampl/data/dto/networkDTO/response/CurrencyResponse.dart';
 import 'package:sampl/data/dto/networkDTO/response/HomeResponseDTO.dart';
 import 'package:sampl/data/dto/networkDTO/response/TransactionsResponseDTO.dart';
+import 'package:sampl/data/enum/CurrencySymbol.dart';
 
 import '../dto/networkDTO/networkDTO/ExampleNetworkDTO.dart';
 import '../httpClient/HttpClientLocal.dart';
@@ -48,7 +49,8 @@ class TaskDatasource {
 
   Future<void> postCurrency(
       String hashedParam,
-      Map<String, String> body,
+      CurrencySymbol symbol,
+      Map<String, String>? body,
       {
         required Future<void> Function(Map<String, dynamic>) onSuccess,
         required Future<void> Function(String) onFail
@@ -56,7 +58,10 @@ class TaskDatasource {
   ) async {
     await _httpClient.post(
         "/task/currency",
-        {"hashed" : hashedParam},
+        {
+          "hashed" : hashedParam,
+          "symbol" : symbol.name
+        },
         body,
         onSuccess: onSuccess,
         onFail: onFail

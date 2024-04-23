@@ -40,7 +40,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashUiState> {
       on<SplashInitialize> ((event, emit) async {
         await Future.delayed(const Duration(milliseconds: 2000), () {});
         emit(state.copyWith(splashState: SplashStateCheckPermission()));
-
       });
 
       /**

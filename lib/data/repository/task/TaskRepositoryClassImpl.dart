@@ -96,9 +96,36 @@ class TaskRepositoryClassImpl extends TaskRepositoryClass {
   }
 
   @override
-  Future<CurrencyResponseDTO> postCurrency(CurrencySymbol symbol, void Function(dynamic p1) onSuccess, void Function(String p1) onFail) {
-    // TODO: implement postCurrency
-    throw UnimplementedError();
+  Future<void> postCurrency(
+      CurrencySymbol symbol,
+      Future<void> Function(CurrencyResponseDTO) onSuccess,
+      Future<void> Function(String) onFail
+  ) async {
+    String? hashedValue = await cbcPlugin.encodeStringWithCBC("/task/currency");
+    await taskDatasource.postCurrency(
+        hashedValue ?? "",
+        symbol,
+        null,
+        onSuccess: (onSuccessResponse) async {
+          await onSuccess(
+              CurrencyResponseDTO(
+                  currencyResponseMap: onSuccessResponse.map((key, value) {
+                    if(value.runtimeType == int) {
+                      int valueInt = value;
+                      return MapEntry<String,double>(key, valueInt.toDouble());
+                    } else if(value.runtimeType == double) {
+                      return MapEntry<String, double>(key, value);
+                    } else if(value.runtimeType == Null) {
+                      return MapEntry<String, double>(key, 0);
+                    } else {
+                      throw Exception("value must be int or double : cast Type ${value.runtimeType}");
+                    }
+                  })
+              )
+          );
+        },
+        onFail: onFail
+    );
   }
 
   @override
