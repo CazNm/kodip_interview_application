@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampl/data/enum/CurrencySymbol.dart';
+import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/currency/bloc/CurrencyBloc.dart';
 import 'package:sampl/scenario/home/currency/bloc/uiState/CurrencyUiState.dart';
 import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/fixedSize.dart';
 import 'package:sampl/util/design/paddingValue.dart';
 import 'package:sampl/util/design/textClass.dart';
+import 'package:sampl/util/toast/toastHelper.dart';
 
 import '../../../util/ui/KodipBarChart.dart';
 import '../../../util/ui/kodipLargeTabButton.dart';
@@ -50,8 +52,16 @@ class _CurrencyScreen extends State<CurrencyScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return  BlocConsumer<CurrencyBloc, CurrencyUiState>(
-        listener: (context, state) {
-
+        listener: (context, uiState) {
+          switch(uiState.state) {
+            case CurrencyError() :
+              var currentState = uiState.state as CurrencyError;
+              showToast(context, msg: "ERROR OCCUR ${currentState.errorReason}");
+              Navigator.pushNamedAndRemoveUntil(context, SplashRoute.init, (route) => false);
+              return;
+            default :
+              return;
+          }
         },
         builder: (context, state) {
           return Container(

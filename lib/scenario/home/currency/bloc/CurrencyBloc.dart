@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampl/data/dto/localDTO/CurrencyMap.dart';
 import 'package:sampl/data/dto/networkDTO/response/CurrencyResponse.dart';
 import 'package:sampl/data/enum/CurrencySymbol.dart';
+import 'package:sampl/data/enum/ErrorReason.dart';
 import 'package:sampl/data/repository/task/TaskRepositoryClass.dart';
 import 'package:sampl/data/repository/task/TaskRepositoryClassImpl.dart';
 import 'package:sampl/scenario/home/currency/bloc/uiState/CurrencyUiState.dart';
@@ -17,7 +18,7 @@ final class CurrencyInitializeEvent extends CurrencyEvent {
   });
 }
 
-final class CurrencyError extends CurrencyEvent {}
+final class CurrencyErrorEvent extends CurrencyEvent {}
 
 class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyUiState> {
   TaskRepositoryClass taskRepositoryClass = TaskRepositoryClassImpl();
@@ -44,11 +45,15 @@ class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyUiState> {
             );
           },
           (String onFailMsg) async {
-
+            emit(
+                state.copyWith(
+                    state: CurrencyError(errorReason: ErrorReason.API_EXCEPTION)
+                )
+            );
           });
     });
 
-    on<CurrencyError>((event, emit) async {
+    on<CurrencyErrorEvent>((event, emit) async {
 
     });
   }

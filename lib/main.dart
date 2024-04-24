@@ -11,6 +11,7 @@ void main() {
   runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,10 +26,25 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Pretendard'
       ),
       initialRoute: SplashRoute.init,
-      routes: <String, WidgetBuilder> {
-          SplashRoute.init :(BuildContext context) => const SplashView(),
-          HomeRoute.init : (BuildContext context) => const HomeNavigator()
+      onGenerateRoute: (RouteSettings settings) {
+        WidgetBuilder? builder;
+        builder ??= switch(settings.name) {
+            SplashRoute.init => (BuildContext context) => const SplashView(),
+            String() => null,
+            null => null,
+          };
+
+        builder ??= homeRoute(settings);
+
+        if(settings.name == "/") {
+          builder = (BuildContext context) => const SizedBox();
         }
+
+        if(builder == null) {
+          throw Exception("Navigator builder must not be null ${settings.name}");
+        }
+        return MaterialPageRoute<void>(builder: builder, settings: settings);
+      },
     );
   }
 }

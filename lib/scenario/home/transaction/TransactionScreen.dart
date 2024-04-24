@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampl/extenstions/IntExtension.dart';
+import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/transaction/bloc/TransactionBloc.dart';
 import 'package:sampl/scenario/home/transaction/bloc/uiState/TransactionUiState.dart';
 import 'package:sampl/util/design/fixedSize.dart';
 import 'package:sampl/util/design/paddingValue.dart';
 import 'package:sampl/util/design/textClass.dart';
+import 'package:sampl/util/toast/toastHelper.dart';
 import 'package:sampl/util/ui/kodipLargeTabButton.dart';
 
 import '../../../data/enum/PaymentType.dart';
@@ -45,6 +47,15 @@ class _TransactionScreen extends State<TransactionScreen> {
 
     return BlocConsumer<TransactionBloc, TransactionUiState>(
         listener: (context, uiState){
+          switch(uiState.state) {
+            case TransactionError() :
+              var currentState = uiState.state as TransactionError;
+              showToast(context, msg: "ERROR OCCUR ${currentState.errorReason}");
+              Navigator.pushNamedAndRemoveUntil(context, SplashRoute.init, (route) => false);
+              return;
+            default:
+              return;
+          }
 
         },
         builder: (context, uiState) {

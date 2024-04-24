@@ -8,46 +8,32 @@ import 'package:sampl/util/debugPrint.dart';
 import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/textClass.dart';
 
-class HomeNavigator extends StatelessWidget {
-  const HomeNavigator({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Navigator(
-      initialRoute: HomeRoute.homeMain,
-      onGenerateRoute: (RouteSettings settings) {
-        printHelper("navigation route ${settings.name}");
-        WidgetBuilder builder;
-        switch (settings.name) {
-          case HomeRoute.homeMain:
-            builder = (BuildContext context) => Container(
-              color : colorWhite,
-              child: const HomeView(),
-            );
-          case HomeRoute.transaction: {
-            final args = settings.arguments as HomeRouteTransactionArgument;
-            builder = (BuildContext context) =>  Container(
-              color : colorWhite,
-              child: TransactionView(transactionId : args.transactionId),
-            );
-          }
-          case HomeRoute.currency:
-            final args = settings.arguments as HomeRouteCurrencyArgument;
-            builder = (BuildContext _) => Container(
-              color : colorWhite,
-              child: CurrencyView(symbol: args.currencySymbolEnum),
-            );
-          default:
-            builder = (BuildContext _) => Container(
-              color : colorWhite,
-              child: const TextTitleLarge(text: ""),
-            );
-        }
-        return MaterialPageRoute<void>(builder: builder, settings: settings);
-      },
-    );
+WidgetBuilder? homeRoute(RouteSettings settings) {
+  switch (settings.name) {
+    case HomeRoute.init:
+      return (BuildContext context) => Container(
+        color : colorWhite,
+        child: const HomeView(),
+      );
+    case HomeRoute.transaction: {
+      final args = settings.arguments as HomeRouteTransactionArgument;
+      return (BuildContext context) =>  Container(
+        color : colorWhite,
+        child: TransactionView(transactionId : args.transactionId),
+      );
+    }
+    case HomeRoute.currency:
+      final args = settings.arguments as HomeRouteCurrencyArgument;
+      return (BuildContext _) => Container(
+        color : colorWhite,
+        child: CurrencyView(symbol: args.currencySymbolEnum),
+      );
+    default:
+      break;
   }
+  return null;
 }
+
 
 class HomeRouteTransactionArgument  {
   final int transactionId;

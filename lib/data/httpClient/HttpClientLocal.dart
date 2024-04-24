@@ -42,28 +42,32 @@ class HttpClientLocal {
   ) async {
     printHelper("post method active $methodUrl\n");
 
-    final response = await http.post(
-        Uri.http(
-            _baseUrl,
-            methodUrl,
-            jsonParam
-        ),
-        body: jsonEncode(jsonBody)
-    ).timeout(
-        const Duration(seconds: 5),
-        onTimeout: () async {
-          await onFail("timeOut");
-          throw StateError("timeout Exception");
-        }
-    );
+    try {
+      final response = await http.post(
+          Uri.http(
+              _baseUrl,
+              methodUrl,
+              jsonParam
+          ),
+          body: jsonEncode(jsonBody)
+      ).timeout(
+          const Duration(seconds: 5),
+          onTimeout: () async {
+            throw StateError("timeout Exception");
+          }
+      );
 
-    printHelper("response status code is ${response.statusCode}\n");
-    printHelper("response status body is ${response.body}\n");
+      printHelper("response status code is ${response.statusCode}\n");
+      printHelper("response status body is ${response.body}\n");
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      await onSuccess(json.decode(response.body));
-    } else {
-      await onFail("response code is not 200. current code is ${response.statusCode}");
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        await onSuccess(json.decode(response.body));
+      } else {
+        await onFail("response code is not 200. current code is ${response.statusCode}");
+      }
+    } catch(e){
+      printHelper("str");
+      await onFail("$e");
     }
   }
 }

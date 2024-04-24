@@ -3,6 +3,7 @@ import 'package:sampl/data/dto/localDTO/TransactionSummary.dart';
 import 'package:sampl/data/dto/localDTO/Wallet.dart';
 import 'package:sampl/data/dto/networkDTO/response/HomeResponseDTO.dart';
 import 'package:sampl/data/dto/networkDTO/response/TransactionsResponseDTO.dart';
+import 'package:sampl/data/enum/ErrorReason.dart';
 import 'package:sampl/data/repository/task/TaskRepositoryClass.dart';
 import 'package:sampl/data/repository/task/TaskRepositoryClassImpl.dart';
 import 'package:sampl/extenstions/ListMapper.dart';
@@ -22,7 +23,7 @@ final class HomeRequestTransactionDetail extends HomeEvent {}
 
 final class HomeRequestTransactionMore extends HomeEvent {}
 
-final class HomeError extends HomeEvent {}
+final class HomeErrorEvent extends HomeEvent {}
 
 class HomeBloc extends Bloc<HomeEvent, HomeUiState> {
   
@@ -85,7 +86,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeUiState> {
           );
         },
         (String failMsg) async {
-
+          emit(state.copyWith(
+              state: HomeError(errorReason: ErrorReason.API_EXCEPTION)
+          ));
         });
     });
 
@@ -135,7 +138,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeUiState> {
       );
     });
 
-    on<HomeError>((event, emit){
+    on<HomeErrorEvent>((event, emit){
 
     });
 

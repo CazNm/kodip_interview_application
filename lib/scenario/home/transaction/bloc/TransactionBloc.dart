@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampl/data/dto/networkDTO/networkDTO/TransactionSummaryNetworkDTO.dart';
+import 'package:sampl/data/enum/ErrorReason.dart';
 import 'package:sampl/data/repository/task/TaskRepositoryClass.dart';
 import 'package:sampl/data/repository/task/TaskRepositoryClassImpl.dart';
 import 'package:sampl/extenstions/networkToLocal.dart';
@@ -15,7 +16,7 @@ final class TransactionInitializeEvent extends TransactionEvent {
   });
 }
 
-final class TransactionError extends TransactionEvent {}
+final class TransactionErrorEvent extends TransactionEvent {}
 
 class TransactionBloc extends Bloc<TransactionEvent , TransactionUiState> {
 
@@ -42,12 +43,14 @@ class TransactionBloc extends Bloc<TransactionEvent , TransactionUiState> {
             );
           },
           (String onFailMsg) async{
-
+            emit(state.copyWith(
+                state: TransactionError(errorReason: ErrorReason.API_EXCEPTION)
+            ));
           }
       );
     });
 
-    on<TransactionError>((event, emit) async {
+    on<TransactionErrorEvent>((event, emit) async {
 
     });
   }

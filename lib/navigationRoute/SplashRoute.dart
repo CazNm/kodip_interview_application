@@ -1,4 +1,4 @@
 
 class SplashRoute {
-  static String init = "/splash";
+  static const String init = "/splash";
 }

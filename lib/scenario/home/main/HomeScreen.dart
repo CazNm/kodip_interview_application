@@ -11,6 +11,7 @@ import 'package:sampl/data/enum/PaymentType.dart';
 import 'package:sampl/extenstions/IntExtension.dart';
 import 'package:sampl/extenstions/ListMapper.dart';
 import 'package:sampl/navigationRoute/HomeRoute.dart';
+import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/HomeNavigator.dart';
 import 'package:sampl/scenario/home/main/bloc/HomeBloc.dart';
 import 'package:sampl/scenario/home/main/bloc/uiState/HomeUiState.dart';
@@ -19,6 +20,7 @@ import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/fixedSize.dart';
 import 'package:sampl/util/design/paddingValue.dart';
 import 'package:sampl/util/design/textClass.dart';
+import 'package:sampl/util/toast/toastHelper.dart';
 import 'package:sampl/util/ui/kodipLargeTabButton.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -77,6 +79,10 @@ class _HomeScreen extends State<HomeScreen> {
             case HomeAPILoading() :
               homeBloc.add(HomeGetDataAPI());
               return;
+            case HomeError() :
+              var currentState = homeUiState.state as HomeError;
+              showToast(context, msg: "ERROR OCCUR ${currentState.errorReason}");
+              Navigator.pushNamedAndRemoveUntil(context, SplashRoute.init, (route) => false);
             default :
               return;
           }
