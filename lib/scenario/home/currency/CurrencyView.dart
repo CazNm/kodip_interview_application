@@ -3,7 +3,7 @@ import 'package:flutter_bloc/src/bloc_provider.dart';
 import 'package:sampl/data/enum/CurrencySymbol.dart';
 import 'package:sampl/scenario/home/currency/CurrencyScreen.dart';
 import 'package:sampl/scenario/home/currency/bloc/CurrencyBloc.dart';
-import 'package:sampl/util/ui/TopLevelView.dart';
+import 'package:sampl/util/customClass/TopLevelView.dart';
 
 class CurrencyView extends TopLevelView {
   final CurrencySymbol symbol;
