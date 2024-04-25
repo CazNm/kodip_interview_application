@@ -155,7 +155,7 @@ class _KodipBarChart extends State<KodipBarChart> {
         BarChartRodData(
             fromY: 0,
             toY: currencyData,
-            color: color88BE2E,
+            color: color88BE2E(context),
             width: 20,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(5))
         )

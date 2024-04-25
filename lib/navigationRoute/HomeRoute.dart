@@ -15,20 +15,20 @@ WidgetBuilder? homeRoute(RouteSettings settings) {
   switch (settings.name) {
     case HomeRoute.init:
       return (BuildContext context) => Container(
-        color : colorWhite,
+        color : colorWhite(context),
         child: const HomeView(),
       );
     case HomeRoute.transaction: {
       final args = settings.arguments as HomeRouteTransactionArgument;
       return (BuildContext context) =>  Container(
-        color : colorWhite,
+        color : colorWhite(context),
         child: TransactionView(transactionId : args.transactionId),
       );
     }
     case HomeRoute.currency:
       final args = settings.arguments as HomeRouteCurrencyArgument;
-      return (BuildContext _) => Container(
-        color : colorWhite,
+      return (BuildContext context) => Container(
+        color : colorWhite(context),
         child: CurrencyView(symbol: args.currencySymbolEnum),
       );
     default:

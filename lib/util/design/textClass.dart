@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sampl/util/design/color.dart';
 
 class TextSmall extends StatelessWidget {
   final String text;
@@ -12,10 +13,11 @@ class TextSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: "Pretendard",
         fontSize: 10,
         fontWeight: FontWeight.w400,
+        color: colorBlack(context),
         height: 1.4,
         overflow: TextOverflow.ellipsis
       ),
@@ -36,10 +38,11 @@ class TextMedium extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: "Pretendard",
         fontSize: 12,
         fontWeight: FontWeight.w400,
+        color: colorBlack(context),
         height: 1.5,
         overflow: TextOverflow.ellipsis
       ),
@@ -60,10 +63,11 @@ class TextLarge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: "Pretendard",
         fontSize: 16,
         fontWeight: FontWeight.w400,
+        color: colorBlack(context),
         height: 1.5,
         overflow: TextOverflow.ellipsis
       ),
@@ -84,10 +88,11 @@ class TextTitleSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: "Pretendard",
         fontSize: 12,
         fontWeight: FontWeight.w600,
+        color: colorBlack(context),
         height: 1.666,
         overflow: TextOverflow.ellipsis
       ),
@@ -107,12 +112,13 @@ class TextTitleMedium extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: "Pretendard",
         fontSize: 16,
         fontWeight: FontWeight.w600,
+        color: colorBlack(context),
         height: 1.25,
-          overflow: TextOverflow.ellipsis
+        overflow: TextOverflow.ellipsis
       ),
     );
   }
@@ -130,10 +136,11 @@ class TextTitleLarge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: "Pretendard",
         fontSize: 20,
         fontWeight: FontWeight.w600,
+        color: colorBlack(context),
         height: 1.4,
         overflow: TextOverflow.ellipsis
       ),
@@ -153,10 +160,11 @@ class TextMediumSeoulNamsan extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style:  TextStyle(
         fontFamily: "SeoulNamsan",
         fontSize: 12,
         fontWeight: FontWeight.w400,
+        color: colorBlack(context),
         height: 1.4,
           overflow: TextOverflow.ellipsis
       ),

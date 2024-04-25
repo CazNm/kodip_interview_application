@@ -22,7 +22,7 @@ abstract class StateWithOverlay<T extends StatefulWidget> extends State<T> {
             color: color50444444,
             child:  Center(
               child: CircularProgressIndicator(
-                color: color88BE2E,
+                color: color88BE2E(context),
               ),
             ),
           ) ,

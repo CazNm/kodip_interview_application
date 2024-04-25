@@ -71,7 +71,7 @@ class _CurrencyScreen extends StateWithOverlay<CurrencyScreen> {
           return Container(
               width: double.infinity,
               height: double.infinity,
-              color: colorWhite,
+              color: colorWhite(context),
               child: Column(
                 children: [
                   SizedBox(
@@ -125,7 +125,7 @@ class _CurrencyScreen extends StateWithOverlay<CurrencyScreen> {
           BarChartRodData(
             fromY: 0,
             toY: currencyData,
-            color: color88BE2E,
+            color: color88BE2E(context),
             width: 5
           )
         ],

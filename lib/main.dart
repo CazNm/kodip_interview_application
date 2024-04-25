@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Pretendard'
       ),
+      darkTheme: ThemeData.dark(),
       initialRoute: SplashRoute.init,
       onGenerateRoute: (RouteSettings settings) {
         WidgetBuilder? builder;

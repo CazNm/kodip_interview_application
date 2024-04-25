@@ -76,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
             height: double.infinity,
             width: double.infinity,
             alignment: Alignment.center,
-            color: colorWhite,
+            color: colorWhite(context),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,8 +85,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 _kodipPng(),
                 const Spacer(flex: 1),
                 LinearProgressIndicator(
-                    backgroundColor: color444444,
-                    color: color88BE2E,
+                    backgroundColor: colorEEEEEE(context),
+                    color: color88BE2E(context),
                     value : state.loadingStage.toDouble() / 100
                 ),
               ],
