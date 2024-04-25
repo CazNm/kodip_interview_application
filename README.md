@@ -1,4 +1,4 @@
-# Kodip Readme
+![image](https://github.com/CazNm/kodip_interview_application/assets/39646484/90273693-eecc-4459-bd93-38eb3642eec1)# Kodip Readme
 
 # Kodip interview application
 
@@ -108,4 +108,9 @@ util/ui
         - 한번 터치 시,
             - 리스트의 처음 아이템과 기본 확대값 스케일로 돌아옵니다.
 - 반응형 제작
-    - 가로 모드가 완벽하게 지원되지는 않습니다. 하지만 반응형으로 제작되어 가로로 돌려도 어느정도의 어플리케이션들의 형태는 유지가 되어 나옵니다. 
+  게 유지 됩니다. 
+
+---
+### 프로젝트 Notion 문서 [📋Notion](https://caznm132.notion.site/Kodip-interview-application-db8757116e8e4ee899aec6203316dc54)
+
+- 추가적인 정보를 문서화 하였습니다.
