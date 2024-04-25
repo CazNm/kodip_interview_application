@@ -1,6 +1,10 @@
 ![image](https://github.com/CazNm/kodip_interview_application/assets/39646484/90273693-eecc-4459-bd93-38eb3642eec1)# Kodip Readme
 
 # Kodip interview application
+---
+## Flutter / Dart version
+Flutter 3.19.0 
+Tools • Dart 3.3.0 • DevTools 2.31.1
 
 ---
 
