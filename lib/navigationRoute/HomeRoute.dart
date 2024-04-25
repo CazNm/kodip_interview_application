@@ -6,12 +6,10 @@ import 'package:sampl/scenario/home/transaction/TransactionView.dart';
 import 'package:sampl/util/design/color.dart';
 
 class HomeRoute {
-  static const String init = '/home';
-  static const String currency = '/home/currency';
-  static const String transaction = '/home/transaction';
+  static const String init = 'home';
+  static const String currency = 'home/currency';
+  static const String transaction = 'home/transaction';
 }
-
-
 
 WidgetBuilder? homeRoute(RouteSettings settings) {
   switch (settings.name) {

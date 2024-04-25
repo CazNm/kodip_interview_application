@@ -4,6 +4,7 @@ import 'package:sampl/extenstions/IntExtension.dart';
 import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/transaction/bloc/TransactionBloc.dart';
 import 'package:sampl/scenario/home/transaction/bloc/uiState/TransactionUiState.dart';
+import 'package:sampl/util/customClass/StateWithLoading.dart';
 import 'package:sampl/util/design/fixedSize.dart';
 import 'package:sampl/util/design/paddingValue.dart';
 import 'package:sampl/util/design/textClass.dart';
@@ -25,7 +26,7 @@ class TransactionScreen extends StatefulWidget {
 
 }
 
-class _TransactionScreen extends State<TransactionScreen> {
+class _TransactionScreen extends StateWithOverlay<TransactionScreen> {
   late int transactionId;
   late TransactionBloc transactionBloc;
 
@@ -35,6 +36,7 @@ class _TransactionScreen extends State<TransactionScreen> {
     transactionId = widget.transactionId;
     transactionBloc = BlocProvider.of<TransactionBloc>(context);
     transactionBloc.add(TransactionInitializeEvent(transactionId: transactionId));
+    startLoadingOverlay();
   }
 
   void onClickButtonToClose() {
@@ -42,18 +44,18 @@ class _TransactionScreen extends State<TransactionScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-
+  Widget child(BuildContext context) {
     return BlocConsumer<TransactionBloc, TransactionUiState>(
         listener: (context, uiState){
           switch(uiState.state) {
             case TransactionError() :
+              stopLoading();
               var currentState = uiState.state as TransactionError;
               showToast(context, msg: "ERROR OCCUR ${currentState.errorReason}");
               Navigator.pushNamedAndRemoveUntil(context, SplashRoute.init, (route) => false);
               return;
             default:
+              stopLoading();
               return;
           }
 

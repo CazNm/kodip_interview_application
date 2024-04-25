@@ -7,6 +7,8 @@ var color999999 = const Color(0xFF999999);
 /// gray l -> DarkTheme Background
 var color444444 = const Color(0xFF444444);
 
+var color50444444 = const Color(0x50444444);
+
 /// green s -> darkTheme
 var colorC6FF6A = const Color(0xFFC6FF6A);
 /// green m -> lightTheme

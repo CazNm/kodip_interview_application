@@ -13,6 +13,7 @@ import 'package:sampl/navigationRoute/HomeRoute.dart';
 import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/main/bloc/HomeBloc.dart';
 import 'package:sampl/scenario/home/main/bloc/uiState/HomeUiState.dart';
+import 'package:sampl/util/customClass/StateWithLoading.dart';
 import 'package:sampl/util/debugPrint.dart';
 import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/fixedSize.dart';
@@ -30,7 +31,7 @@ class HomeScreen extends StatefulWidget {
   }
 }
 
-class _HomeScreen extends State<HomeScreen> {
+class _HomeScreen extends StateWithOverlay<HomeScreen> {
 
   late HomeBloc homeBloc;
 
@@ -43,6 +44,7 @@ class _HomeScreen extends State<HomeScreen> {
     switch(homeUiState.state) {
       case HomeInitialize() :
         homeBloc.add(HomeInitializeEvent());
+        startLoadingOverlay();
         return;
       default :
         return;
@@ -68,7 +70,7 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget child(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeUiState>(
         listener: (context, state) {
           HomeUiState homeUiState = homeBloc.state;
@@ -78,10 +80,12 @@ class _HomeScreen extends State<HomeScreen> {
               homeBloc.add(HomeGetDataAPI());
               return;
             case HomeError() :
+              stopLoading();
               var currentState = homeUiState.state as HomeError;
               showToast(context, msg: "ERROR OCCUR ${currentState.errorReason}");
               Navigator.pushNamedAndRemoveUntil(context, SplashRoute.init, (route) => false);
             default :
+              stopLoading();
               return;
           }
         },
