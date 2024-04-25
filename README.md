@@ -93,6 +93,8 @@ util/ui
 
 - 오직 AndroidEmulator 에서만 동작합니다.
     - 실물 기기의 같은 wifi 연결의 경우 [localhost](http://localhost) 서버가 생성된 내부 ip 도메인 값을 읽어옴과 포트 개방 등의 작업이 필요하여 AndroidEmulator 가 localhost 에 접근하여 localhost 서버의 응답을 받아오도록 개발하였습니다.
+    - django 에서 ALLOW HOST 에 ip 를 허용해야 합니다.  
+      ALLOWED_HOSTS = ['127.0.0.1','localhost','10.0.2.2'] ( 10.0.2.2 는 에뮬레이터가 로컬호스트에 연결하기 위한 ip 도메인입니다. )
 - dark mode 를 지원합니다.
 - 서버에러를 핸들링 합니다.
     - 403 에러 및 기타 **“200” Status** 를 반환하지 않는 서버 에러는 모두 SplashView 로 보내집니다.
