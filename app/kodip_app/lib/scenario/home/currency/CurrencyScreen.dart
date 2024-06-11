@@ -1,3 +1,4 @@
+import 'package:custom_class/custom_class.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,7 +7,6 @@ import 'package:sampl/data/enum/CurrencySymbol.dart';
 import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/currency/bloc/CurrencyBloc.dart';
 import 'package:sampl/scenario/home/currency/bloc/uiState/CurrencyUiState.dart';
-import 'package:sampl/util/customClass/StateWithLoading.dart';
 import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/fixedSize.dart';
 import 'package:sampl/util/design/paddingValue.dart';

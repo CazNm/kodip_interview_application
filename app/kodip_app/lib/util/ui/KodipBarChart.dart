@@ -1,11 +1,10 @@
+import 'package:custom_class/custom_class.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:sampl/util/customClass/CustomGestureDetector.dart';
 import 'package:sampl/util/debugPrint.dart';
 import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/fixedSize.dart';
-import 'package:sampl/util/design/paddingValue.dart';
 import 'package:sampl/util/design/textClass.dart';
 
 

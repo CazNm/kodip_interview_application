@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:sampl/util/design/color.dart';
+
+import 'util/design/color.dart';
 
 abstract class StateWithOverlay<T extends StatefulWidget> extends State<T> {
   OverlayEntry? overlayEntry;

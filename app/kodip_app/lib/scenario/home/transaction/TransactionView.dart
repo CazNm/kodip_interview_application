@@ -1,8 +1,8 @@
+import 'package:custom_class/custom_class.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/src/bloc_provider.dart';
 import 'package:sampl/scenario/home/transaction/TransactionScreen.dart';
 import 'package:sampl/scenario/home/transaction/bloc/TransactionBloc.dart';
-import 'package:sampl/util/customClass/TopLevelView.dart';
 
 class TransactionView extends TopLevelView {
   final int transactionId;

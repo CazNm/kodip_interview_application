@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
-import 'package:sampl/util/debugPrint.dart';
+
+import 'util/debugPrint.dart';
 
 class CustomGestureTapDetector extends OneSequenceGestureRecognizer {
   final Function onPanDown;

@@ -1,10 +1,10 @@
+import 'package:custom_class/custom_class.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sampl/extenstions/IntExtension.dart';
 import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/transaction/bloc/TransactionBloc.dart';
 import 'package:sampl/scenario/home/transaction/bloc/uiState/TransactionUiState.dart';
-import 'package:sampl/util/customClass/StateWithLoading.dart';
 import 'package:sampl/util/design/fixedSize.dart';
 import 'package:sampl/util/design/paddingValue.dart';
 import 'package:sampl/util/design/textClass.dart';

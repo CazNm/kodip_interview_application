@@ -1,0 +1,9 @@
+name : melos_test
+
+packages:
+  - app/**
+  - package/**
+
+scripts:
+  analyze:
+    exec: dart analyze

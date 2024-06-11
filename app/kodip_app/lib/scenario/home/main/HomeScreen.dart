@@ -1,3 +1,4 @@
+import 'package:custom_class/custom_class.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,7 +14,6 @@ import 'package:sampl/navigationRoute/HomeRoute.dart';
 import 'package:sampl/navigationRoute/SplashRoute.dart';
 import 'package:sampl/scenario/home/main/bloc/HomeBloc.dart';
 import 'package:sampl/scenario/home/main/bloc/uiState/HomeUiState.dart';
-import 'package:sampl/util/customClass/StateWithLoading.dart';
 import 'package:sampl/util/debugPrint.dart';
 import 'package:sampl/util/design/color.dart';
 import 'package:sampl/util/design/fixedSize.dart';
